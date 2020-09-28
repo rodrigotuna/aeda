@@ -1,5 +1,6 @@
 #include "parque.h"
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -16,11 +17,13 @@ unsigned ParqueEstacionamento::getNumMaximoClientes() const {
 }
 
 int ParqueEstacionamento::posicaoCliente(const string& nome) const {
-	if (find(clientes.begin(), clientes.end(), nome) == clientes.end()) {
-		return -1;
+	for (size_t i = 0; i < clientes.size(); i++) {
+		if (clientes[i].nome == nome) {
+			return i;
+		}
 	}
 
-	return (find(clientes.begin(), clientes.end(), nome) - clientes.end());
+	return -1;
 }
 
 bool ParqueEstacionamento::adicionaCliente(const string& nome) {
